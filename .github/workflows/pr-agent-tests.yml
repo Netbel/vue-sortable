@@ -1,0 +1,30 @@
+name: PR Agent tests
+
+on:
+  pull_request:
+    paths:
+      - .github/pr-agent/**
+      - .github/workflows/pr-agent*.yml
+      - .pr_agent.toml
+      - docs/review/**
+  push:
+    branches: [master]
+    paths:
+      - .github/pr-agent/**
+      - .github/workflows/pr-agent*.yml
+      - .pr_agent.toml
+      - docs/review/**
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Validar runner y adaptador sin credenciales ni llamadas al modelo
+        run: python3 -B -m unittest discover -s .github/pr-agent/tests -v

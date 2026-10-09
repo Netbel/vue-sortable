@@ -2,3 +2,7 @@
 node_modules/
 npm-debug.log
 .idea
+
+# PR-Agent: reportes locales y cache de Python
+pr-agent-results/
+.github/pr-agent/**/__pycache__/
